@@ -38,8 +38,12 @@ class Mastermind
         Console.WriteLine("You have {0} guesses remaining.", chances);
         Console.WriteLine("Please enter your guess:");
         string currentGuess = Convert.ToString(Console.ReadLine());
-        int correctGuess = 0;
-        int almostRight = 0;
+
+        int temp;
+        while(!Int32.TryParse(currentGuess, out temp) || currentGuess.Length != len) {
+            Console.WriteLine("Input rejected. Please enter {0} integers.", len);
+            currentGuess = Console.ReadLine();
+        }
 
         if (masterCode[0] == currentGuess[0] &&
             masterCode[1] == currentGuess[1] &&
@@ -50,6 +54,10 @@ class Mastermind
         }
 
         else {
+            int correctGuess = 0;
+            int almostRight = 0;
+            int ones, twos, threes, fours, fives, sixes;
+
             for (int i = 0; i < currentGuess.Length; ++i) {
 
             for (int j = 0; j < masterCode.Length; ++j) {
