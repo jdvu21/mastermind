@@ -1,7 +1,11 @@
 /* 
+   Jeff Vu - jdvu21@gmail.com
+
+   Mastermind
    This is a C# program that can be compiled using:
    csc (windows, c sharp compiler)
    msc (OSX, mono compiler)
+
 */
 
 
@@ -31,8 +35,6 @@ class Mastermind
                 masterCode += t;
     	}
 
-        // Console.WriteLine("{0}", masterCode);
-
     while (chances != 0) {
         Console.WriteLine("You have {0} guesses remaining.", chances);
         Console.WriteLine("Please enter your guess:");
@@ -41,6 +43,13 @@ class Mastermind
         int temp;
         while(!Int32.TryParse(currentGuess, out temp) || currentGuess.Length != len) {
             Console.WriteLine("Input rejected. Please enter {0} integers.", len);
+            currentGuess = Console.ReadLine();
+        }
+        while(currentGuess.Contains("0") || 
+              currentGuess.Contains("7") ||
+              currentGuess.Contains("8") ||
+              currentGuess.Contains("9")) {
+            Console.WriteLine("Input rejected. Only use ints between 1 and 6.");
             currentGuess = Console.ReadLine();
         }
 
