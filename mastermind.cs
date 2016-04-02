@@ -17,22 +17,21 @@ class Mastermind
 
     	if (args.Length == 0) 
     	{
-    		Console.WriteLine("You did not declare number of trys. Please do so now:");
+    		Console.WriteLine("You did not declare number of guesses. Please do so now:");
     		chances = Convert.ToInt16(Console.ReadLine());
     	}
     	else
     		chances = Convert.ToInt16(args[0]);
 
     	Random roll = new Random();
-    	for (int i = 0; i < len; ++i)
+    	for (int i = 0; masterCode.Length < len; ++i)
     	{
             string t = Convert.ToString(roll.Next(1,7));
-            masterCode += t;
+            if (!masterCode.Contains(t))
+                masterCode += t;
     	}
 
-    	// for debug
-        // Console.WriteLine("Master code has been generated.");
-        Console.WriteLine("{0}", masterCode);
+        // Console.WriteLine("{0}", masterCode);
 
     while (chances != 0) {
         Console.WriteLine("You have {0} guesses remaining.", chances);
@@ -56,23 +55,26 @@ class Mastermind
         else {
             int correctGuess = 0;
             int almostRight = 0;
-            int ones, twos, threes, fours, fives, sixes;
 
-            for (int i = 0; i < currentGuess.Length; ++i) {
-
-            for (int j = 0; j < masterCode.Length; ++j) {
-                if (masterCode[i] == currentGuess[j]) {
+            for (int i = 0; i < masterCode.Length; ++i) {
+                if (masterCode[i] == currentGuess[i]) {
                     ++correctGuess;
+                }
+                else {
+                    string s = Convert.ToString(masterCode[i]);
+                    if (currentGuess.Contains(s)) {
+                        ++almostRight;
                     }
                 }
             }
 
             for (int i = 0; i < correctGuess; ++i) {
-                Console.WriteLine("+");
+                Console.Write("+");
             }
             for (int i = 0; i < almostRight; ++i) {
-                Console.WriteLine("-");
+                Console.Write("-");
             }
+            Console.WriteLine();
             
             chances--;
             }
